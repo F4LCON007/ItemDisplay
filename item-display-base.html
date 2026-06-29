@@ -1,0 +1,127 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Item Display</title>
+    <script src="public/js/item-list.js"></script>
+
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        background: #f4f4f4;
+        margin: 0;
+        padding: 40px;
+      }
+
+      .main-container {
+        width: 700px;
+        margin: auto;
+        background: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+      }
+
+      h2 {
+        margin-top: 0;
+        font-size: 40px;
+      }
+
+      select {
+        width: 250px;
+        padding: 10px;
+        font-size: 16px;
+      }
+
+      hr {
+        margin: 20px 0;
+      }
+
+      .prop-row {
+        display: flex;
+        margin: 12px 0;
+        font-size: 28px;
+      }
+
+      .prop-name {
+        width: 250px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="main-container">
+      <h2>Item Display</h2>
+
+      <select id="item-list">
+        <option value="">-- Select Item --</option>
+      </select>
+
+      <hr />
+
+      <div class="prop-row">
+        <div class="prop-name">ID</div>
+        <div id="item-id"></div>
+      </div>
+
+      <div class="prop-row">
+        <div class="prop-name">Name</div>
+        <div id="item-name"></div>
+      </div>
+
+      <div class="prop-row">
+        <div class="prop-name">Category</div>
+        <div id="item-category"></div>
+      </div>
+
+      <div class="prop-row">
+        <div class="prop-name">Inventory Amt.</div>
+        <div id="item-inventory"></div>
+      </div>
+
+      <div class="prop-row">
+        <div class="prop-name">List price</div>
+        <div id="item-price"></div>
+      </div>
+    </div>
+
+    <script>
+      const select = document.getElementById("item-list");
+
+      //Create option list
+      items.forEach((item) => {
+        const option = document.createElement("option");
+        option.value = item.id;
+        option.textContent = item.name;
+        select.appendChild(option);
+      });
+
+      //Display item information
+      select.addEventListener("change", function () {
+        if (this.value === "") {
+          clearData();
+          return;
+        }
+
+        const item = items.find((i) => i.id == this.value);
+
+        document.getElementById("item-id").textContent = item.id;
+        document.getElementById("item-name").textContent = item.name;
+        document.getElementById("item-category").textContent = item.category;
+        document.getElementById("item-inventory").textContent = item.inventory;
+        document.getElementById("item-price").textContent = item.price;
+      });
+
+      //Clear data
+      function clearData() {
+        document.getElementById("item-id").textContent = "";
+        document.getElementById("item-name").textContent = "";
+        document.getElementById("item-category").textContent = "";
+        document.getElementById("item-inventory").textContent = "";
+        document.getElementById("item-price").textContent = "";
+      }
+
+      clearData();
+    </script>
+  </body>
+</html>
